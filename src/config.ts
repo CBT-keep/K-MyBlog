@@ -33,7 +33,7 @@ export const siteConfig: SiteConfig = {
 }
 
 export const profileConfig: ProfileConfig = {
-    avatar: "assets/WDZ.png", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
+    avatar: "/assets/WDZ.png", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
     name: "还不困",
     description: "唯有行动能解除所有不安",
     indexPage: "https://github.com/CBT-keep",
@@ -49,7 +49,7 @@ export const licenseConfig: LicenseConfig = {
 export const friendLinkConfig: FriendLink[] = [
     {
         name: 'WDZ',
-        avatar: 'assets/WDZ.png',
+        avatar: '/assets/WDZ.png',
         url: '',
         description: 'Keep'
     },
