@@ -205,9 +205,14 @@
   font-family: inherit;
 }
 
-/* 暗色模式：代码块用深色背景 */
-[data-theme="dark"] .markdown-content pre.shiki {
-  background-color: #1c1c1e !important;
+/* 暗色模式：Shiki 双主题代码块颜色切换（astro 5 + shiki dual themes） */
+[data-theme="dark"] .markdown-content .astro-code,
+[data-theme="dark"] .markdown-content .astro-code span {
+  color: var(--shiki-dark) !important;
+  background-color: var(--shiki-dark-bg, inherit) !important;
+  font-style: var(--shiki-dark-font-style, inherit) !important;
+  font-weight: var(--shiki-dark-font-weight, inherit) !important;
+  text-decoration: var(--shiki-dark-text-decoration, inherit) !important;
 }
 
 .markdown-content hr {
