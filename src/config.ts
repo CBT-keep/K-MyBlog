@@ -7,7 +7,7 @@ import type {
 import type { FriendLink } from "./types/friend"
 
 export const siteConfig: SiteConfig = {
-    title: "K",
+    title: "Momo",
     subTitle: "Blog",
 
     favicon: "/favicon/favicon.ico", // Path of the favicon, relative to the /public directory
@@ -48,7 +48,7 @@ export const licenseConfig: LicenseConfig = {
 
 export const friendLinkConfig: FriendLink[] = [
     {
-        name: 'WDZ',
+        name: '__AgAiN_',
         avatar: '/assets/WDZ.png',
         url: '',
         description: 'Keep'
