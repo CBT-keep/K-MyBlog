@@ -6,8 +6,8 @@
     --primary-color: #007acc;
 
     /* 代码高亮 - 亮色主题 (Apple/light inspired) */
-    --shiki-foreground: #1F2328;
-    --shiki-background: #f6f8fa;
+    --shiki-color-text: #1F2328;
+    --shiki-color-background: #f6f8fa;
     --shiki-token-constant: #0550ae;
     --shiki-token-string: #0a3069;
     --shiki-token-comment: #656d76;
@@ -27,8 +27,8 @@
     --quote-left-color: #606770;
 
     /* 代码高亮 - 暗色主题 (Apple/dark inspired) */
-    --shiki-foreground: #adbac7;
-    --shiki-background: #22272e;
+    --shiki-color-text: #adbac7;
+    --shiki-color-background: #22272e;
     --shiki-token-constant: #6cb6ff;
     --shiki-token-string: #96d0ff;
     --shiki-token-comment: #768390;
@@ -228,7 +228,7 @@
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
   border: 1px solid var(--button-border-color);
   position: relative;
-  background-color: var(--shiki-background) !important;
+  background-color: var(--shiki-color-background) !important;
 }
 
 [data-theme="dark"] .markdown-content pre {
@@ -240,7 +240,7 @@
   font-size: 0.95rem;
   font-family: inherit;
   background: none !important;
-  color: var(--shiki-foreground);
+  color: var(--shiki-color-text);
 }
 
 .markdown-content hr {
