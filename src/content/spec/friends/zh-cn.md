@@ -6,9 +6,9 @@
 
 ```typescript
 {
-    name: 'Motues',
-    avatar: 'https://www.motues.top/avatar.jpg',
-    url: 'https://www.motues.top',
-    description: 'Like River!'
+    name: 'xxx',
+    avatar: 'https://www.xxx.top/avatar.jpg',
+    url: 'https://www.xxx.top',
+    description: 'xxx'
 }
 ```
