@@ -15,4 +15,4 @@ slugId: momo/test/card
 
 ## Github 卡片
 
-::github{repo="Motues/Momo"}
+::github{repo="CBT-keep/Momo"}

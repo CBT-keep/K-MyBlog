@@ -15,4 +15,4 @@ slugId: momo/test/card
 
 ## Github Card
 
-::github{repo="Motues/Momo"}
+::github{repo="CBT-keep/Momo"}

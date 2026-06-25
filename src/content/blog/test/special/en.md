@@ -33,7 +33,7 @@ $E = mc^2$
 
 ### Github Card
 
-::github{repo="Motues/Momo"}
+::github{repo="CBT-keep/Momo"}
 
 ## Special Syntax
 
