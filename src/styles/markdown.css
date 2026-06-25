@@ -187,14 +187,16 @@
   margin-bottom: 0.5rem !important;
   padding: 1rem;
   overflow: auto;
-  background-color: rgba(0, 0, 0, 0.05);
-  border-radius: 6px;
+  border-radius: 12px;
   font-family: 'JetBrains Mono Variable', ui-monospace;
   line-height: 1.5;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border: 1px solid var(--button-border-color);
+  position: relative;
 }
 
 [data-theme="dark"] .markdown-content pre {
-  background-color: rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 .markdown-content pre code {
