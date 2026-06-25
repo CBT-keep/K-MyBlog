@@ -49,7 +49,7 @@ export default defineConfig({
         light: 'github-light',
         dark: 'github-dark-dimmed',
       },
-      defaultColor: false,
+      defaultColor: 'light',
       wrap: false
     },
     remarkPlugins: [

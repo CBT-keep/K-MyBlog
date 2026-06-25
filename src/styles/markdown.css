@@ -205,6 +205,17 @@
   font-family: inherit;
 }
 
+/* Shiki 双主题切换支持 */
+[data-theme="dark"] .markdown-content pre code .line,
+[data-theme="dark"] .markdown-content pre code span {
+  color: var(--shiki-dark) !important;
+}
+
+[data-theme="dark"] .markdown-content pre.shiki,
+[data-theme="dark"] .markdown-content pre.shiki > code {
+  background-color: var(--shiki-dark-bg, #22272e) !important;
+}
+
 .markdown-content hr {
   margin: 2rem 0;
   border: none;
