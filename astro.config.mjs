@@ -45,8 +45,10 @@ export default defineConfig({
   }), svelte()],
   markdown: {
     shikiConfig: {
-      theme: 'one-dark-pro', // code theme
-      // theme: 'github-dark',
+      themes: {
+        light: 'github-light',
+        dark: 'github-dark-dimmed',
+      },
       wrap: false
     },
     remarkPlugins: [

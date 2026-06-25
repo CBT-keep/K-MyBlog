@@ -1,5 +1,5 @@
 
-Momo originates from Xiaohongshu's 📕, serving as every new user's initial nickname, symbolizing a fresh start. The blog's design philosophy stems from this concept, beginning with simplicity to strike a balance between complex functionality and minimalist aesthetics.
+Less Is More
 
 ## ✨ Features
 
@@ -12,28 +12,4 @@ Momo originates from Xiaohongshu's 📕, serving as every new user's initial nic
 * **Extensive Markdown syntax**: Supports Katex, Typst, and Alert components, GitHub cards, custom syntax, and more
 * Additional Core Features: Post categorization, directory, RSS subscription, text statistics, reading time
 
-
-## 🚀 Quick Start
-
-1. Clone this project
-    ```bash
-    git clone https://github.com/Motues/Momo.git
-    cd Momo
-    ```
-2. Run `pnpm install` to install dependencies (use `npm install -g pnpm` to install `pnpm`)
-3. Run `pnpm dev` to start the development server
-
-## 🔧 Configuration
-
-Refer to the [Configuration Guide](/en/blog/intro/config) and read the corresponding articles for detailed information.
-
-## 📚 Updates
-
-Refer to the [Update Guide](/en/blog/intro/release) for instructions on updating the project.
-
-
-## 📚 References
-
-* [Astro](https://astro.build/)
-* [Fuwari](https://github.com/saicaca/fuwari)
-* [Tyndall](https://github.com/moyuin-aka/tyndall-public)
+From Motues
