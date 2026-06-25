@@ -4,10 +4,44 @@
 
     /* alerts color */
     --primary-color: #007acc;
+
+    /* 代码高亮 - 亮色主题 (Apple/light inspired) */
+    --shiki-foreground: #1F2328;
+    --shiki-background: #f6f8fa;
+    --shiki-token-constant: #0550ae;
+    --shiki-token-string: #0a3069;
+    --shiki-token-comment: #656d76;
+    --shiki-token-keyword: #cf222e;
+    --shiki-token-parameter: #1F2328;
+    --shiki-token-function: #8250df;
+    --shiki-token-string-expression: #0a3069;
+    --shiki-token-punctuation: #1F2328;
+    --shiki-token-link: #0550ae;
+    --shiki-token-number: #0550ae;
+    --shiki-token-operator: #0550ae;
+    --shiki-token-entity: #8250df;
+    --shiki-token-variable: #953800;
 }
 
 [data-theme="dark"] {
     --quote-left-color: #606770;
+
+    /* 代码高亮 - 暗色主题 (Apple/dark inspired) */
+    --shiki-foreground: #adbac7;
+    --shiki-background: #22272e;
+    --shiki-token-constant: #6cb6ff;
+    --shiki-token-string: #96d0ff;
+    --shiki-token-comment: #768390;
+    --shiki-token-keyword: #f47067;
+    --shiki-token-parameter: #adbac7;
+    --shiki-token-function: #dcbdfb;
+    --shiki-token-string-expression: #96d0ff;
+    --shiki-token-punctuation: #adbac7;
+    --shiki-token-link: #6cb6ff;
+    --shiki-token-number: #6cb6ff;
+    --shiki-token-operator: #6cb6ff;
+    --shiki-token-entity: #dcbdfb;
+    --shiki-token-variable: #d07277;
 }
 
 .markdown-content {
@@ -169,8 +203,8 @@
   padding: 0.2rem 0.4rem;
   background-color: rgba(0, 0, 0, 0.05);
   border-radius: 4px;
-  font-family: 'JetBrains Mono Variable', ui-monospace;
-  font-size: 0.9em;
+  font-family: 'JetBrains Mono Variable', ui-monospace, 'SF Mono', Menlo, Monaco, monospace;
+  font-size: 0.95em;
 }
 
 
@@ -185,28 +219,28 @@
 .markdown-content pre {
   margin-top: 0.5rem !important;
   margin-bottom: 0.5rem !important;
-  padding: 1rem;
+  padding: 1rem 1.2rem;
   overflow: auto;
   border-radius: 12px;
-  font-family: 'JetBrains Mono Variable', ui-monospace;
-  line-height: 1.5;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  font-family: 'JetBrains Mono Variable', ui-monospace, 'SF Mono', Menlo, Monaco, 'Cascadia Code', monospace;
+  font-size: 0.95rem;
+  line-height: 1.65;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
   border: 1px solid var(--button-border-color);
   position: relative;
+  background-color: var(--shiki-background) !important;
 }
 
 [data-theme="dark"] .markdown-content pre {
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
 }
 
 .markdown-content pre code {
   padding: 0;
-  font-size: 0.9rem;
-}
-
-[data-theme="dark"] .markdown-content pre code {
-  padding: 0;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
+  font-family: inherit;
+  background: none !important;
+  color: var(--shiki-foreground);
 }
 
 .markdown-content hr {
