@@ -205,6 +205,11 @@
   font-family: inherit;
 }
 
+/* 暗色模式：代码块用深色背景 */
+[data-theme="dark"] .markdown-content pre.shiki {
+  background-color: #1c1c1e !important;
+}
+
 .markdown-content hr {
   margin: 2rem 0;
   border: none;
