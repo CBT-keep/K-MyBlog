@@ -1,6 +1,6 @@
 ---
 title: Testing KaTeX
-pubDate: 2025-09-17
+pubDate: 2026-06-25
 description: Article functionality test
 category: Test
 image: ""

@@ -1,6 +1,6 @@
 ---
 title: 测试特殊卡片
-pubDate: 2026-01-05
+pubDate: 2026-06-25
 description: 文章功能测试
 category: 测试
 image: ""

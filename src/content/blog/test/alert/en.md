@@ -1,6 +1,6 @@
 ---
 title: Test Alert
-pubDate: 2025-09-18
+pubDate: 2026-06-25
 description: Article functionality testing
 category: Test
 image: ""

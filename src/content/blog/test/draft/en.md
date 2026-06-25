@@ -1,6 +1,6 @@
 ---
 title: Test Draft
-pubDate: 2024-12-31
+pubDate: 2026-06-25
 description: Article functionality testing
 category: Test
 image: ""

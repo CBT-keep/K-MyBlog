@@ -1,6 +1,6 @@
 ---
 title: Testing External Video Import
-pubDate: 2025-09-09
+pubDate: 2026-06-25
 description: Article Functionality Testing
 category: Test
 image: ""

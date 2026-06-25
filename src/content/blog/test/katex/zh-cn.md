@@ -1,6 +1,6 @@
 ---
 title: 测试 Katex
-pubDate: 2025-09-17
+pubDate: 2026-06-25
 description: 文章功能测试
 category: 测试
 image: ""

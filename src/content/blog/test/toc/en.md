@@ -1,6 +1,6 @@
 ---
 title: Test Directory
-pubDate: 2025-09-19
+pubDate: 2026-06-25
 description: Article Functionality Testing
 category: Test
 image: ""

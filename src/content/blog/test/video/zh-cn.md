@@ -1,6 +1,6 @@
 ---
 title: 测试外部视频导入
-pubDate: 2025-09-09
+pubDate: 2026-06-25
 description: 文章功能测试
 category: 测试
 image: ""

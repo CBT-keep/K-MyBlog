@@ -1,6 +1,6 @@
 ---
 title: Testing Special Markdown
-pubDate: 2026-01-12
+pubDate: 2026-06-25
 description: Article functionality test
 category: Test
 image: ""

@@ -1,6 +1,6 @@
 ---
 title: Test Card
-pubDate: 2026-01-05
+pubDate: 2026-06-25
 description: Article functionality testing
 category: Test
 image: ""
