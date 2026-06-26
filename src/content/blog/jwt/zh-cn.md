@@ -109,3 +109,241 @@ API网关会认为用户颁发的token有权利访问整个分组下的所有绑
 3. JWT 本身包含了认证信息，一旦泄露，任何人都可以获得该令牌的所有权限。为了减少盗用，JWT 的有效期应该设置得比较短。对于一些比较重要的权限，使用时应该再次对用户进行认证。
 
 4. 为了减少盗用，JWT 不应该使用 HTTP 协议明码传输，要使用HTTPS 协议传输。
+
+# 用Java实现基于JWT的登陆验证
+## 1. 引入依赖项
+~~~xml
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-security</artifactId>
+</dependency>
+<!-- JWT 操作库 -->
+<dependency>
+    <groupId>io.jsonwebtoken</groupId>
+    <artifactId>jjwt-api</artifactId>
+    <version>0.12.6</version>
+</dependency>
+<dependency>
+    <groupId>io.jsonwebtoken</groupId>
+    <artifactId>jjwt-impl</artifactId>
+    <version>0.12.6</version>
+    <scope>runtime</scope>
+</dependency>
+<dependency>
+    <groupId>io.jsonwebtoken</groupId>
+    <artifactId>jjwt-jackson</artifactId>
+    <version>0.12.6</version>
+    <scope>runtime</scope>
+</dependency>
+~~~
+
+## 2. 编写JWT工具类
+负责JWT的生成，解析以及验证
+~~~java
+@Component
+public class JwtUtil {
+
+    @Value("${jwt.secret}")
+    private String secret;
+
+    @Value("${jwt.expiration}")
+    private Long expiration;
+
+    /**
+     * 从令牌中获取用户名
+     */
+    public String extractUsername(String token) {
+        return extractClaim(token, Claims::getSubject);
+    }
+
+    /**
+     * 从令牌中获取过期时间
+     */
+    public Date extractExpiration(String token) {
+        return extractClaim(token, Claims::getExpiration);
+    }
+
+    /**
+     * 从令牌中获取指定claim
+     */
+    public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
+        final Claims claims = extractAllClaims(token);
+        return claimsResolver.apply(claims);
+    }
+
+    private Claims extractAllClaims(String token) {
+        return Jwts.parser()
+                .verifyWith(getSignKey())
+                .build()
+                .parseSignedClaims(token)
+                .getPayload();
+    }
+
+    /**
+     * 检查令牌是否过期
+     */
+    private Boolean isTokenExpired(String token) {
+        return extractExpiration(token).before(new Date());
+    }
+
+    /**
+     * 为用户生成JWT令牌
+     */
+    public String generateToken(String username, Map<String, Object> claims) {
+        return createToken(claims, username);
+    }
+
+    private String createToken(Map<String, Object> claims, String subject) {
+        return Jwts.builder()
+                .claims(claims)
+                .subject(subject)
+                .issuedAt(new Date(System.currentTimeMillis()))
+                .expiration(new Date(System.currentTimeMillis() + expiration))
+                .signWith(getSignKey())
+                .compact();
+    }
+
+    /**
+     * 验证令牌是否有效
+     */
+    public Boolean validateToken(String token, String username) {
+        final String extractedUsername = extractUsername(token);
+        return (extractedUsername.equals(username) && !isTokenExpired(token));
+    }
+
+    private SecretKey getSignKey() {
+        byte[] keyBytes = secret.getBytes(StandardCharsets.UTF_8);
+        return Keys.hmacShaKeyFor(keyBytes);
+    }
+}
+~~~
+
+## 3. 实现登录接口与token生成
+~~~java
+@RestController
+@RequestMapping("/api/auth")
+public class AuthController {
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private JwtUtil jwtUtil;
+
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody UserLoginDto loginDto) {
+        // 1. 使用Spring Security验证用户名和密码
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword())
+        );
+
+        // 2. 如果验证通过，生成JWT
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        Map<String, Object> claims = new HashMap<>();
+        // 可以在claims里放入角色等信息
+        claims.put("roles", userDetails.getAuthorities());
+
+        String token = jwtUtil.generateToken(userDetails.getUsername(), claims);
+
+        // 3. 返回Token给客户端
+        return ResponseEntity.ok(new JwtResponse(token));
+    }
+}
+~~~
+
+## 4. 创建JWT请求过滤器
+~~~java
+@Component
+public class JwtAuthFilter extends OncePerRequestFilter {
+
+    @Autowired
+    private JwtUtil jwtUtil;
+
+    @Autowired
+    private UserDetailsService userDetailsService;
+
+    @Override
+    protected void doFilterInternal(HttpServletRequest request,
+                                    HttpServletResponse response,
+                                    FilterChain filterChain)
+            throws ServletException, IOException {
+
+        final String authHeader = request.getHeader("Authorization");
+        final String jwt;
+        final String username;
+
+        // 1. 从Header中提取JWT
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+        jwt = authHeader.substring(7);
+
+        // 2. 从JWT中解析出用户名
+        username = jwtUtil.extractUsername(jwt);
+
+        // 3. 如果用户名不为空且当前上下文没有认证信息，则进行验证
+        if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+            UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
+
+            // 4. 验证Token是否有效
+            if (jwtUtil.validateToken(jwt, userDetails.getUsername())) {
+                // 5. 创建认证令牌并存入上下文
+                UsernamePasswordAuthenticationToken authToken =
+                        new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+                authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                SecurityContextHolder.getContext().setAuthentication(authToken);
+            }
+        }
+        // 6. 继续执行后续过滤器
+        filterChain.doFilter(request, response);
+    }
+}
+~~~
+
+## 5. 配置Spring Security
+
+~~~java
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig {
+
+    @Autowired
+    private JwtAuthFilter jwtAuthFilter;
+
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http
+            .csrf(csrf -> csrf.disable()) // 禁用CSRF
+            .authorizeHttpRequests(auth -> auth
+                .requestMatchers("/api/auth/login").permitAll() // 放行登录接口
+                .anyRequest().authenticated() // 其他所有请求都需要认证
+            )
+            .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // 无状态
+            .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class); // 添加JWT过滤器
+
+        return http.build();
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+        return config.getAuthenticationManager();
+    }
+
+    // 示例：使用内存用户，实际项目中会从数据库加载
+    @Bean
+    public UserDetailsService userDetailsService() {
+        UserDetails user = User.builder()
+                .username("user")
+                .password(passwordEncoder().encode("password"))
+                .roles("USER")
+                .build();
+        return new InMemoryUserDetailsManager(user);
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+}
+~~~
