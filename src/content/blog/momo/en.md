@@ -2,6 +2,7 @@
 title: Momo
 pubDate: 2026-06-26
 description: Just like what you see on Xiaohongshu, Momo means a fresh start.
+category: Musings
 image: ""
 draft: false
 slugId: momo/momo

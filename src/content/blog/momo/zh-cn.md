@@ -2,6 +2,7 @@
 title: Momo
 pubDate: 2026-06-26
 description: 就像小红书里所看到的，Momo意味着新的开始。
+category: 碎碎念
 image: ""
 draft: false
 slugId: momo/momo
